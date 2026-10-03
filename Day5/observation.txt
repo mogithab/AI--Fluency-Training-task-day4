@@ -1,0 +1,123 @@
+DAY 5 – OBSERVATION SHEET
+
+PART A – TWO MODELS
+
+Model 1:
+Name/Tag: qwen2.5:1.5b
+Disk Size: 0.99 GB
+Loaded Memory: 1.17 GB
+Processor: GPU
+Context: 4096
+License: Apache 2.0
+Benchmark performance: See bench_models.py output
+
+Model 2:
+Name/Tag: mistral:latest
+Disk Size: 4.37 GB
+Loaded Memory: 5.1 GB
+Processor: CPU/GPU
+Context: 4096
+License: Check using ollama show mistral --license
+Benchmark performance: See bench_models.py output
+
+Scholarship calculation:
+Course fee = Rs. 18,000
+Scholarship = 15%
+Scholarship amount = Rs. 2,700
+Payable amount = Rs. 15,300
+
+PART B – CUSTOM MODELS
+
+Custom model 1:
+fee-assistant
+
+Behavior:
+The model was instructed not to guess fees and to say that it needs to look up the fee.
+
+Custom model 2:
+events-announcer
+
+Behavior:
+The model was configured with a higher temperature and an enthusiastic college-events-announcer system prompt.
+
+Program system-prompt override:
+The program prompt was tested using prompt_override.py.
+Actual result: The response did not follow the pirate prompt.
+It also produced an unsupported fee estimate, so the override behavior was not demonstrated successfully in this run.
+
+New model disk usage:
+The custom models use the same base weights and are approximately 0.99 GB each.
+
+PART C – API
+
+/api/tags:
+Successfully listed installed models.
+
+/api/generate – first run:
+Tokens: 55
+Elapsed: 10.58 s
+Tokens/sec: 5.20
+
+/api/generate – second run:
+Tokens: 59
+Elapsed: 4.84 s
+Tokens/sec: 12.19
+
+/api/chat streaming – first run:
+TTFT: 2.07 s
+Total time: 2.46 s
+
+/api/chat streaming – second run:
+TTFT: 2.07 s
+Total time: 2.65 s
+
+/api/ps:
+qwen2.5:1.5b | size=1.17 GB
+
+PART D – BENCHMARK
+
+qwen2.5:1.5b
+
+Prompt 1:
+Tokens/sec: 0.51
+
+Prompt 2:
+Tokens/sec: 7.83
+
+Prompt 3:
+Tokens/sec: 37.41
+
+mistral:latest
+
+Prompt 1:
+Tokens/sec: 0.14
+
+Prompt 2:
+Tokens/sec: 4.43
+
+Prompt 3:
+Tokens/sec: 4.51
+
+Scholarship answer:
+Both models calculated the payable amount correctly as Rs. 15,300.
+
+PART E – vLLM
+
+GPU:
+NVIDIA GeForce RTX 2050
+
+VRAM:
+4096 MiB (4 GB)
+
+The prescribed 7B model with 8192-token context was not run locally because of the available GPU memory.
+
+Concepts demonstrated:
+- KV cache blocks
+- PagedAttention
+- Continuous batching
+- Prefix caching
+- OpenAI-compatible API
+
+CONCLUSION:
+Day 5 covered Ollama model serving, custom Modelfiles, REST APIs,
+model benchmarking, and the main concepts used by vLLM for efficient serving.

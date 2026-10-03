@@ -1,0 +1,45 @@
+DAY 5 - PART E: vLLM DEMONSTRATION
+
+GPU:
+NVIDIA GeForce RTX 2050
+
+GPU VRAM:
+4096 MiB (4 GB)
+
+vLLM installation:
+Successfully installed vLLM 0.30.0.
+
+Reason for demonstration/paper alternative:
+The prescribed Qwen2.5-7B-Instruct model with 8192-token context is not suitable
+for my 4 GB GPU memory, so the vLLM concepts are documented as a demonstration.
+
+1. KV CACHE AND PAGEDATTENTION
+Traditional KV cache can reserve memory inefficiently.
+PagedAttention divides KV cache memory into blocks/pages and manages them efficiently.
+
+2. STATIC BATCHING VS CONTINUOUS BATCHING
+Static batching waits for requests in a fixed batch.
+Continuous batching allows new requests to be added as previous requests finish.
+
+3. PREFIX CACHING
+If multiple requests share the same system prompt or prefix,
+the already-computed prefix can be reused instead of being processed again.
+
+4. EXPECTED OBSERVATION
+One request:
+The server processes one request normally.
+
+Multiple concurrent requests:
+Continuous batching allows requests to be processed together,
+improving GPU utilization and throughput.
+
+With prefix caching:
+Repeated shared prefixes require less repeated computation.
+
+5. CLIENT CHANGE
+The client can use the OpenAI-compatible API.
+The main changes are the server base URL and model name.
+
+6. CONCLUSION
+vLLM improves LLM serving efficiency through PagedAttention,
+continuous batching, and prefix caching.
